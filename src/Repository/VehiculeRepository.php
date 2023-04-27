@@ -39,6 +39,22 @@ class VehiculeRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Vehicule[]
+     */
+    public function findAllWithModeleMarqueAndOptions() : array
+    {
+        return $this->createQueryBuilder('v')
+            ->leftJoin('v.modele', 'm')
+            ->leftJoin('m.marque', 'ma')
+            ->leftJoin('v.options', 'o')
+            ->addSelect('m')
+            ->addSelect('ma')
+            ->addSelect('o')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Vehicule[] Returns an array of Vehicule objects
 //     */

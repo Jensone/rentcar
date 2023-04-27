@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Client;
+use App\Entity\Marque;
 use App\Entity\Vehicule;
 use App\Entity\Reservation;
 use Symfony\Component\Form\AbstractType;
@@ -18,7 +18,6 @@ class ReservationType extends AbstractType
         $builder
             ->add('date_debut', DateType::class, ['widget' => 'single_text'])
             ->add('date_fin', DateType::class, ['widget' => 'single_text'])
-            ->add('client', EntityType::class, ['class' => Client::class, 'choice_label' => 'nom'])
             ->add('vehicule', EntityType::class, ['class' => Vehicule::class, 'choice_label' => 'marque'])
         ;
     }

@@ -1,10 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccueilController!{% endblock %}
+{% block title %}Hello VehiculeController!{% endblock %}
 
 {% block body %}
- <h1>Quelle voiture voulez vous louer aujourd'hui ?</h1>
-
 <div class="row d-flex justify-content-center gap-3">
     {% for item in vehicules %}
         {% if vehicules <= 0 %}
@@ -23,7 +21,4 @@
         {% endif %}
     {% endfor %}
 </div>
-
-
-
 {% endblock %}
