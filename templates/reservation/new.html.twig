@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Réservation de véhicule</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.date_debut) }}
+    {{ form_row(form.date_fin) }}
+    {{ form_row(form.client) }}
+    {{ form_row(form.vehicule) }}
+
+    {{ form_end(form) }}
+{% endblock %}
