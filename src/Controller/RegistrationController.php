@@ -25,7 +25,7 @@ class RegistrationController extends AbstractController
         $this->emailVerifier = $emailVerifier;
     }
 
-    #[Route('/register', name: 'app_register')]
+    #[Route('/enregistrement', name: 'enregistrement')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new Client();
@@ -57,7 +57,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('_profiler_router');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('registration/enregistrement.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
