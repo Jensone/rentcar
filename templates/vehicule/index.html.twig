@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello VehiculeController!{% endblock %}
+{% block title %}Nos véhicules{% endblock %}
 
 {% block body %}
+<h1 class="text-center mb-5">Nos véhicules</h1>
+
 <div class="row d-flex justify-content-center gap-3">
     {% for item in vehicules %}
         {% if vehicules <= 0 %}
@@ -15,7 +17,7 @@
                     <p class="card-text">
                         {{ item.prix }} € / jour
                     </p>
-                    <a href="#" class="card-link">Voir la fiche</a>
+                    <a href={{ path('vehicule', { id : item.id }) }} class="card-link btn btn-outline-primary">Voir la fiche</a>
                 </div>
             </div>
         {% endif %}

@@ -2,61 +2,40 @@
 
 namespace App\Controller;
 
-use App\Entity\Marque;
-use App\Entity\Type;
-use App\Entity\Option;
+
+use App\Repository\OptionRepository;
 use App\Repository\VehiculeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class VehiculeController extends AbstractController
 {
-    #[Route('/vehicules', name: 'vehicules')]
-    public function index(): Response
+    // Route pour afficher tous les véhicules
+    #[Route('/vehicules', name: 'vehicules', methods: ['GET'])]
+    public function index(
+        VehiculeRepository $vehicules
+    ): Response
     {
+        $vehicules = $vehicules->findAllWithModeleMarqueAndOptions();
+
         return $this->render('vehicule/index.html.twig', [
-            'controller_name' => 'VehiculeController',
+            'vehicules' => $vehicules,
         ]);
     }
 
-    // #[Route('/vehicule', name: 'app_vehicule_show')]
-    // public function searchVehicules(Request $request, VehiculeRepository $vehiculeRepository)
-    // {
-    //     $form = $this->createFormBuilder()
-    //         ->add('marque', EntityType::class, [
-    //             'class' => Marque::class,
-    //             'placeholder' => 'Choisissez une marque',
-    //             'required' => false
-    //         ])
-    //         ->add('type', EntityType::class, [
-    //             'class' => Type::class,
-    //             'placeholder' => 'Choisissez un type',
-    //             'required' => false
-    //         ])
-    //         ->add('options', EntityType::class, [
-    //             'class' => Option::class,
-    //             'placeholder' => 'Choisissez une option',
-    //             'required' => false,
-    //             'multiple' => true
-    //         ])
-    //         ->getForm();
+    // Route pour afficher un véhicule
+    #[Route('/vehicule/{id}', name: 'vehicule', methods: ['GET'])]
+    public function show(
+        $id, 
+        VehiculeRepository $vehicule,
+        OptionRepository $options
+        ): Response
+    {
+        return $this->render('vehicule/show.html.twig', [
+            'item' => $vehicule->find($id),
+            'options' => $options->findAll()
+        ]);
+    }
 
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $data = $form->getData();
-    //         $vehicules = $vehiculeRepository->findVehiculesByCriteria($data['marque'], $data['type'], $data['options']);
-
-    //         return $this->render('vehicule/search.html.twig', [
-    //             'form' => $form->createView(),
-    //             'vehicules' => $vehicules
-    //         ]);
-    //     }
-
-    //     return $this->render('vehicule/search.html.twig', [
-    //         'form' => $form->createView()
-    //     ]);
-    // }
 }

@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Reservation;
 use App\Form\ReservationType;
+use App\Repository\ReservationRepository;
+use App\Repository\VehiculeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,35 +14,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ReservationController extends AbstractController
 {
     #[Route('/reservation', name: 'reservation')]
-    public function index(): Response
+    public function index(
+        ReservationRepository $reservation,
+    ): Response
     {
-        return $this->render('reservation/index.html.twig', [
-            'controller_name' => 'ReservationController',
-        ]);
-    }
-
-    // Route pour afficher le formulaire de réservation
-    #[Route('/reservation/new', name: 'reservation_new')]
-    public function new(Request $request): Response
-    {
-        $reservation = new Reservation();
-        $form = $this->createForm(ReservationType::class, $reservation);
-
-        // Gérer la soumission du formulaire
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Enregistrer la réservation en BDD
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($reservation);
-            $entityManager->flush();
-
-            // Rediriger vers la page d'accueil
-            return $this->redirectToRoute('accueil');
+        // Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('connexion');
+            // Ajout d'un message flash
+            $this->addFlash(
+                'danger',
+                'Vous devez être connecté pour accéder à cette page'
+            );
+        }
+        
+        // Si l'utilisateur est un client, on affiche ses réservations
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $reservations = $reservation->findBy(['client' => $this->getUser()]);
         }
 
-        return $this->render('reservation/new.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('reservation/reservations.html.twig', [
+            'reservations' => $reservations,
         ]);
     }
+
     
 }

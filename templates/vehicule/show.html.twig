@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos véhicules{% endblock %}
+
+{% block body %}
+<div class="row d-flex justify-content-center mb-5">
+    <div class="card col-md-6">
+        <div class="card-body">
+            <div class="my-card-image rounded-3 mb-4 mt-2"></div>
+            <h1 class="card-title">{{ item.modele.marque.nom }} {{ item.modele.nom }}</h1>
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <th scope="row">Catégorie</th>
+                        <td>{{ item.modele.type.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Pussance</th>
+                        <td>{{ item.modele.puissance }}cv</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Année</th>
+                        <td>{{ item.modele.annee }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Immatriculation</th>
+                        <td>{{ item.immatriculation }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">En options</th>
+                        <td>
+                        {% for item in options %}
+                            {{ item.nom }} ({{ item.prix }} €)<br>
+                        {% endfor %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p class="card-text">
+            Ce véhicule est un {{ item.modele.nom }} de la marque {{ item.modele.marque.nom }}. En location à partir de <b>{{ item.prix }}</b> € / jour.
+            </p>
+            <p class="card-text">
+                N'hésitez pas à nous contacter pour plus d'informations. Si vous souhaitez réserver ce véhicule, cliquez sur le bouton ci-dessous.
+            </p>
+            {% if item.disponible == true %}
+                <div class="alert alert-success" role="alert">
+                    Ce véhicule est actuellement disponible.
+                </div>
+                <a href="" class="btn btn-primary">Réserver</a>
+                {% else %}
+                <div class="alert alert-danger" role="alert">
+                    Ce véhicule n'est actuellement pas disponible.
+                </div>
+                <a href={{ path('vehicules') }} class="btn btn-outline-secondary">Retour</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

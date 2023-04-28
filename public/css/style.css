@@ -1,0 +1,16 @@
+body {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1012%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(255%2c 255%2c 255%2c 1)'%3e%3c/rect%3e%3cpath d='M663.39 627.17C821.28 580.64 874.15 135.39 1099.15 133.59 1324.16 131.79 1407.35 391.87 1534.92 402.39' stroke='rgba(255%2c 197%2c 7%2c 0.5)' stroke-width='2'%3e%3c/path%3e%3cpath d='M862.04 592.15C955.75 563.12 921.33 295.37 1117.61 294.37 1313.88 293.37 1496.97 422.18 1628.74 423.17' stroke='rgba(255%2c 197%2c 7%2c 0.5)' stroke-width='2'%3e%3c/path%3e%3cpath d='M241.33 570.61C388.25 553.05 471.29 226.39 720.81 223.63 970.34 220.87 960.55 293.63 1200.3 293.63 1440.04 293.63 1558.64 223.81 1679.78 223.63' stroke='rgba(255%2c 197%2c 7%2c 0.5)' stroke-width='2'%3e%3c/path%3e%3cpath d='M617.83 663.01C770.8 619.89 815.67 197.4 1044.41 191.65 1273.16 185.9 1358.77 329.88 1471 331.65' stroke='rgba(255%2c 197%2c 7%2c 0.5)' stroke-width='2'%3e%3c/path%3e%3cpath d='M522.08 664.93C696.72 647.84 811.89 277.38 1107.02 277.02 1402.16 276.66 1534.92 502.56 1691.97 506.62' stroke='rgba(255%2c 197%2c 7%2c 0.5)' stroke-width='2'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1012'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    min-height: 100vh;
+}
+
+.my-card-image {
+    width: 100%;
+    height: 300px;
+    background-image: url('../images/car.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: cover;
+}

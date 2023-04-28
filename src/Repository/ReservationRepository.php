@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Reservation;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Reservation>
@@ -38,6 +39,26 @@ class ReservationRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findReservationsByUserWithDetails(UserInterface $user)
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->leftJoin('r.vehicule', 'v')
+            ->leftJoin('v.modele', 'm')
+            ->leftJoin('m.marque', 'ma')
+            ->leftJoin('v.options', 'o')
+            ->addSelect('r')
+            ->addSelect('v')
+            ->addSelect('m')
+            ->addSelect('ma')
+            ->addSelect('o')
+            ->andWhere('r.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery();
+
+        return $qb->getResult();
+    }
+
 
 //    /**
 //     * @return Reservation[] Returns an array of Reservation objects

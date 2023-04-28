@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes résevations{% endblock %}
+
+{% block body %}
+<h1 class="text-center mb-5">Vos réservations</h1>
+
+<div class="row d-flex justify-content-center gap-3">
+    {% for item in reservations %}
+        {% if reservations <= 0 %}
+            <p>Vous n'avez pas de réservations</p>
+            <a href={{ path('vehiicules') }} class="btn btn-outline-primary">Choisir une voiture</a>
+        {% else %}
+            <div class="card col-md-3">
+                <div class="card-body">
+                    <h5 class="card-title">Réservation : ID{{ item.id }}</h5>
+                    <p class="card-text">
+                        Du {{ item.dateDebut|date('d/m/Y') }} au {{ item.dateFin|date('d/m/Y') }}<br>
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
